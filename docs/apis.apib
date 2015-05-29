@@ -1,0 +1,98 @@
+FORMAT: 1A
+HOST: https://localhost:8080
+
+# Bridge Resource API's
+This API documentiong outlines the basic set of test controller resource available across the bridge.
+
+## Bridge Controller
+The test controller can be invoked using the API's listed below. These include capabilities like  
++ dynamic invoke of  the ```Invoke()``` method on well known initializable type.
++ central logging so that client and server logs can viewed together.  
+
+# Group Test Execution
+Group of all test-initialization-related resources.
+
+## Test Api's [/test/{testname}]
+
++ The initialization framework would be responsible for executing the ```Invoke()``` method a given class. 
+
++ Parameters
+    + testname: 'TestClass.TestMethod' (required, string) - A unique test name identifier. 
+
+### Initialize Test [PUT]
+
++ Request (application/json)
+
+		{
+			name:"testname",
+			type:"FullyQualifiedTypeName"
+		}
+
++ Response 201 (application/json)
+	
+		{
+			id:"correlation-guid"
+		}
+
++ Response 500 (application/json)
+	
+		{
+			error: "Internal server error exception or stack trace."
+		}
+
+### Complete Test [POST]
+
++ Request (application/json)
+
+		{
+			passed: "true|false",
+			message: "Additional messages or timing info."
+			error: "Exception or stack trace"
+		}
+
++ Response 200 (text/plain)
+
+# Group Diagnostics
+
+## Logs Entries [/log]
+
+### View All Logs [GET]
+
++ Request (text/plain)
+
++ Response 200 (text/html)
+
+## Test Logs [/log/{testname}{?level}]
+
+Api's which enable retrieving or adding log entries for a specific test.
+
++ Parameters
+    + level (enum[string], optional) - Level of the log message to indicate if it an error just info
+    	+ Default: info
+        + Members
+            + `error` - Indicate that the log entry is an error
+            + `info`  - Indicates that the log entry is just informational.
+
+### View Test Logs [GET]
+
++ Request (text/plain)
+
++ Response 200 (text/html)
+
+### Add Log Entry [POST]
+
++ Request (application/json)
+   
+		{ 
+			message:"the message to log."
+		}
+
++ Response 200 (text/plain)
+
+## Purge all logs [/purge]
+
+### Purge all. [DELETE]
+
++ Request (text/plain)
+
++ Response 200 (text/html)
