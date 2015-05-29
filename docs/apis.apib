@@ -9,43 +9,53 @@ The test controller can be invoked using the API's listed below. These include c
 + dynamic invoke of  the ```Invoke()``` method on well known initializable type.
 + central logging so that client and server logs can viewed together.  
 
-# Group Test Execution
-Group of all test-initialization-related resources.
+# Group Resources
+Group of all resource initialization, configuration and update methods.
 
-## Test Api's [/test/{testname}]
+## Resource Api's [/resource/{resourcename}]
 
 + The initialization framework would be responsible for executing the ```Invoke()``` method a given class. 
 
 + Parameters
-    + testname: 'TestClass.TestMethod' (required, string) - A unique test name identifier. 
+    + resourcename: 'ResourceNamespace.ResourceClass' (required, string) - A unique type name identifier. 
 
-### Initialize Test [PUT]
+### Initialize Resource [PUT]
 
 + Request (application/json)
 
 		{
-			name:"testname",
+			name:"resourcename",
 			type:"FullyQualifiedTypeName"
+			parameters : [{
+					baseurl: "",
+					other: { ... }
+			}]
 		}
 
 + Response 201 (application/json)
 	
 		{
 			id:"correlation-guid"
+			details : {
+			  baseUrl: "..." /* The data returned by the invoke method */
+			}
 		}
 
 + Response 500 (application/json)
 	
 		{
-			error: "Internal server error exception or stack trace."
+			id:"correlation-guid"
+			details : { 
+				error: "Internal server error exception or stack trace."
+			}
 		}
 
-### Complete Test [POST]
+### Update status [POST]
 
 + Request (application/json)
 
 		{
-			passed: "true|false",
+			status: "success|failure",
 			message: "Additional messages or timing info."
 			error: "Exception or stack trace"
 		}
@@ -60,11 +70,17 @@ Group of all test-initialization-related resources.
 
 + Request (text/plain)
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
 
-## Test Logs [/log/{testname}{?level}]
+		{
+			level : 'info|error',
+			message : 'Entry string'
+			dateTime: 'ISO encoded time'
+		}
 
-Api's which enable retrieving or adding log entries for a specific test.
+## Resource Logs [/log/{resourcename}{?level}]
+
+Api's which enable retrieving or adding log entries for a specific resource.
 
 + Parameters
     + level (enum[string], optional) - Level of the log message to indicate if it an error just info
@@ -73,11 +89,18 @@ Api's which enable retrieving or adding log entries for a specific test.
             + `error` - Indicate that the log entry is an error
             + `info`  - Indicates that the log entry is just informational.
 
-### View Test Logs [GET]
+### View Resource Logs [GET]
+
+Returns logs of a specified level including all entires of higher criticality than the one specified. For example if the level is ```info``` then the response woulc contain all entries for the given resource which have level ```info``` and ```error```
 
 + Request (text/plain)
 
-+ Response 200 (text/html)
++ Response 200 (application/json)
+		{
+			level : 'info|error',
+			message : 'Entry string'
+			dateTime: 'ISO encoded time'
+		}
 
 ### Add Log Entry [POST]
 
