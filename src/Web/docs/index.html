@@ -1,0 +1,204 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Parameters API</title><link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,700|Inconsolata|Raleway:200"><style>/* Highlight.js Theme Tomorrow */
+.hljs-comment,.hljs-title{color:#8e908c}.hljs-variable,.hljs-attribute,.hljs-tag,.hljs-regexp,.ruby .hljs-constant,.xml .hljs-tag .hljs-title,.xml .hljs-pi,.xml .hljs-doctype,.html .hljs-doctype,.css .hljs-id,.css .hljs-class,.css .hljs-pseudo{color:#c82829}.hljs-number,.hljs-preprocessor,.hljs-pragma,.hljs-built_in,.hljs-literal,.hljs-params,.hljs-constant{color:#f5871f}.ruby .hljs-class .hljs-title,.css .hljs-rules .hljs-attribute{color:#eab700}.hljs-string,.hljs-value,.hljs-inheritance,.hljs-header,.ruby .hljs-symbol,.xml .hljs-cdata{color:#718c00}.css .hljs-hexcolor{color:#3e999f}.hljs-function,.python .hljs-decorator,.python .hljs-title,.ruby .hljs-function .hljs-title,.ruby .hljs-title .hljs-keyword,.perl .hljs-sub,.javascript .hljs-title,.coffeescript .hljs-title{color:#4271ae}.hljs-keyword,.javascript .hljs-function{color:#8959a8}.hljs{display:block;background:white;color:#4d4d4c;padding:.5em}.coffeescript .javascript,.javascript .xml,.tex .hljs-formula,.xml .javascript,.xml .vbscript,.xml .css,.xml .hljs-cdata{opacity:.5}</style><style>body,
+h4,
+h5 {
+  font-family: 'Roboto' sans-serif !important;
+}
+h1,
+h2,
+h3,
+.aglio {
+  font-family: 'Raleway' sans-serif !important;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a {
+  display: none;
+}
+h1:hover a,
+h2:hover a,
+h3:hover a,
+h4:hover a,
+h5:hover a {
+  display: inline;
+}
+code {
+  color: #444;
+  background-color: #ddd;
+  font-family: 'Inconsolata' monospace !important;
+}
+a[data-target] {
+  cursor: pointer;
+}
+h4 {
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.back-to-top {
+  position: fixed;
+  z-index: 1;
+  bottom: 0px;
+  right: 24px;
+  padding: 4px 8px;
+  background-color: #eee;
+  text-decoration: none !important;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-right: 1px solid rgba(0,0,0,0.1);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.panel {
+  overflow: hidden;
+}
+.panel-heading code {
+  margin-left: 3px;
+  color: #c7254e;
+  background-color: rgba(255,255,255,0.7);
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+.panel-heading h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+a.list-group-item:hover {
+  background-color: #f8f8f8;
+  border-left: 2px solid #555;
+  padding-left: 15px;
+}
+.indent {
+  display: block;
+  text-indent: 16px;
+}
+.list-group-item {
+  padding-left: 16px;
+}
+.list-group-item .toggle .open {
+  display: block;
+}
+.list-group-item .toggle .closed {
+  display: none;
+}
+.list-group-item.collapsed .toggle .open {
+  display: none;
+}
+.list-group-item.collapsed .toggle .closed {
+  display: block;
+}
+a.list-group-item {
+  font-size: 13px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+a.list-group-item.heading {
+  font-size: 15px;
+  background-color: #f5f5f5;
+}
+a.list-group-item.heading:hover {
+  background-color: #f8f8f8;
+}
+.list-group-item.collapse {
+  display: none;
+}
+.list-group-item.collapse.in {
+  display: block;
+}
+.list-group-item a span.closed {
+  display: none;
+}
+.list-group-item a span.open {
+  display: block;
+}
+.list-group-item a.collapsed span.closed {
+  display: block;
+}
+.list-group-item a.collapsed span.open {
+  display: none;
+}
+#nav {
+  width: inherit;
+  margin-top: 38px;
+  max-width: 255px;
+  top: 0;
+  bottom: 0;
+  padding-right: 12px;
+  padding-bottom: 12px;
+  overflow-y: auto;
+}
+@media (max-width: 1199px) {
+  #nav {
+    max-width: 212px;
+  }
+}
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#messages-menu" href="#messages" class="list-group-item heading collapsed">Messages</a><div id="messages-menu"><a href="#messages-my-message" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">My Message</a><a href="#messages-my-message-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">Retrieve a Message</span></a><a href="#messages-my-message-put" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-warning"><i class="fa fa-pencil"></i></span><span class="indent">Update a Message</span></a><a href="#messages-all-my-messages" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>All My Messages</a></div></div></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Parameters API</h1></div></header><div class="description"><p>PI
+In this installment of the API Blueprint course we will discuss how to describe URI parameters</p>
+<p>.</p>
+<p>But first let’s add more messages to our system. For that we would need introduce an message identifier – id. This id will be our parameter when communicating with our API about messages</p>
+<p>.</p>
+<h2>API Bluepri</h2>
+<p>nt</p>
+<ul>
+<li>[Previous: Requests](06.%20Requests.m</li>
+</ul>
+<p>d)</p>
+<ul>
+<li>[This: Raw API Blueprint](<a href="https://raw.github.com/apiaryio/api-blueprint/master/examples/07.%20Parameters.m">https://raw.github.com/apiaryio/api-blueprint/master/examples/07.%20Parameters.m</a></li>
+</ul>
+<p>d)</p>
+<ul>
+<li>[Next: Attributes](08.%20Attributes.md</li>
+</ul>
+</div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="messages">Messages&nbsp;<a href="#messages"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>es
+Group of all messages-related resources</p>
+<h4 id="messages-my-message">My Message&nbsp;<a href="#messages-my-message"><i class="fa fa-link"></i></a></h4><p>}]
+Here we have added the message <code>id</code> parameter as an <a href="http://tools.ietf.org/html/rfc6570">URI Template variable</a> in the Message resource’s URI.
+Note the parameter name <code>id</code> is enclosed in curly brackets. We will discuss this parameter in the <code>Parameters</code> section below, where we will also set its example value to <code>1</code> and declare it of an arbitrary ‘number’ type</p>
+<section id="messages-my-message-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Retrieve a Message</span></div><div style="float:left"><a href="#messages-my-message-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/message/{id}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>An unique identifier of the message.</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>Plain Text Message</code></strong><a data-toggle="collapse" data-target="#12e3152130b328ced71be544a76a7618" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="12e3152130b328ced71be544a76a7618" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">text/plain</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#4af4d591347af6f9ed2fb92c63b8867a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="4af4d591347af6f9ed2fb92c63b8867a" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">text/plain</span><br><span class="hljs-attribute">X-My-Message-Header</span>: <span class="hljs-string">42</span><br></code></pre><h5>Body</h5><pre><code><span class="hljs-variable">Hello</span> <span class="hljs-variable">World</span><span class="hljs-exclamation_mark">!</span>
+</code></pre></li><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>JSON Message</code></strong><a data-toggle="collapse" data-target="#dbefb31e5baf5e06fb3dd706bc208206" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="dbefb31e5baf5e06fb3dd706bc208206" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Accept</span>: <span class="hljs-string">application/json</span><br></code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#e858e5f1be6e3f2b7db31fa8e77bf765" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="e858e5f1be6e3f2b7db31fa8e77bf765" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">X-My-Message-Header</span>: <span class="hljs-string">42</span><br></code></pre><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Hello World!"</span>
+</span>}
+</code></pre></li></ul></section><section id="messages-my-message-put" class="panel panel-warning"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Update a Message</span></div><div style="float:left"><a href="#messages-my-message-put" class="btn btn-xs btn-warning">PUT</a></div><div style="overflow:hidden"><code>/message/{id}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>number</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>An unique identifier of the message.</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>Update Plain Text Message</code></strong><a data-toggle="collapse" data-target="#da5249a3b9d856410178d02aa4563071" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="da5249a3b9d856410178d02aa4563071" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">text/plain</span><br></code></pre><h5>Body</h5><pre><code><span class="hljs-label">All</span> your <span class="hljs-keyword">base </span>are <span class="hljs-keyword">belong </span>to us.
+</code></pre></li><li class="list-group-item"><strong>Request&nbsp;&nbsp;<code>Update JSON Message</code></strong><a data-toggle="collapse" data-target="#e70b3ecd33431735200eb359c7b0811f" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="e70b3ecd33431735200eb359c7b0811f" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{ "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"All your base are belong to us."</span> </span>}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>204</code></strong></li></ul></section><h4 id="messages-all-my-messages">All My Messages&nbsp;<a href="#messages-all-my-messages"><i class="fa fa-link"></i></a></h4><p>}]
+A resource representing all of my messages in the system</p>
+<p>.</p>
+<p>We have added the query URI template parameter - <code>limit</code>. This parameter is used for limiting the number of results returned by some actions on this resource. It does not affect every possible action of this resource therefore we will discuss it only at the particular action level below</p>
+<section id="messages-all-my-messages-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Retrieve all Messages</span></div><div style="float:left"><a href="#messages-all-my-messages-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/messages{?limit}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>limit</dt><dd><code>number</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>20</span></span>&nbsp;<p>The maximum number of results to return.</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#b80dc7d34081cb097e9c4c1287aa444c" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="b80dc7d34081cb097e9c4c1287aa444c" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>[
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Hello World!"</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+    "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"Time is an illusion. Lunchtime doubly so."</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+    "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"So long, and thanks for all the fish."</span>
+  </span>}
+]
+</code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 28 May 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+
+</div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
+  if (location.protocol === 'file:') {
+    document.getElementById('localFile').style.display = 'block';
+  }
+
+}).call(this);
+</script><script>(function() {
+  $('table').addClass('table');
+
+}).call(this);
+</script></html>
