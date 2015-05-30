@@ -9,63 +9,41 @@ The test controller can be invoked using the API's listed below. These include c
 + dynamic invoke of  the ```Invoke()``` method on well known initializable type.
 + central logging so that client and server logs can viewed together.  
 
-<<<<<<< HEAD
 # Group Resources
 Group of all resource initialization, configuration and update methods.
 
 ## Resource Api's [/resource/{resourcename}]
-=======
-# Group Test Execution
-Group of all test-initialization-related resources.
-
-## Test Api's [/test/{testname}]
->>>>>>> origin/master
 
 + The initialization framework would be responsible for executing the ```Invoke()``` method a given class. 
 
 + Parameters
-<<<<<<< HEAD
     + resourcename: 'ResourceNamespace.ResourceClass' (required, string) - A unique type name identifier. 
 
 ### Initialize Resource [PUT]
-=======
-    + testname: 'TestClass.TestMethod' (required, string) - A unique test name identifier. 
-
-### Initialize Test [PUT]
->>>>>>> origin/master
 
 + Request (application/json)
 
 		{
-<<<<<<< HEAD
 			name:"resourcename",
 			type:"FullyQualifiedTypeName"
 			parameters : [{
 					baseurl: "",
 					other: { ... }
 			}]
-=======
-			name:"testname",
-			type:"FullyQualifiedTypeName"
->>>>>>> origin/master
 		}
 
 + Response 201 (application/json)
 	
 		{
 			id:"correlation-guid"
-<<<<<<< HEAD
 			details : {
 			  baseUrl: "..." /* The data returned by the invoke method */
 			}
-=======
->>>>>>> origin/master
 		}
 
 + Response 500 (application/json)
 	
 		{
-<<<<<<< HEAD
 			id:"correlation-guid"
 			details : { 
 				error: "Internal server error exception or stack trace."
@@ -73,21 +51,11 @@ Group of all test-initialization-related resources.
 		}
 
 ### Update status [POST]
-=======
-			error: "Internal server error exception or stack trace."
-		}
-
-### Complete Test [POST]
->>>>>>> origin/master
 
 + Request (application/json)
 
 		{
-<<<<<<< HEAD
 			status: "success|failure",
-=======
-			passed: "true|false",
->>>>>>> origin/master
 			message: "Additional messages or timing info."
 			error: "Exception or stack trace"
 		}
@@ -102,7 +70,6 @@ Group of all test-initialization-related resources.
 
 + Request (text/plain)
 
-<<<<<<< HEAD
 + Response 200 (application/json)
 
 		{
@@ -114,13 +81,6 @@ Group of all test-initialization-related resources.
 ## Resource Logs [/log/{resourcename}{?level}]
 
 Api's which enable retrieving or adding log entries for a specific resource.
-=======
-+ Response 200 (text/html)
-
-## Test Logs [/log/{testname}{?level}]
-
-Api's which enable retrieving or adding log entries for a specific test.
->>>>>>> origin/master
 
 + Parameters
     + level (enum[string], optional) - Level of the log message to indicate if it an error just info
@@ -129,7 +89,6 @@ Api's which enable retrieving or adding log entries for a specific test.
             + `error` - Indicate that the log entry is an error
             + `info`  - Indicates that the log entry is just informational.
 
-<<<<<<< HEAD
 ### View Resource Logs [GET]
 
 Returns logs of a specified level including all entires of higher criticality than the one specified. For example if the level is ```info``` then the response woulc contain all entries for the given resource which have level ```info``` and ```error```
@@ -142,13 +101,6 @@ Returns logs of a specified level including all entires of higher criticality th
 			message : 'Entry string'
 			dateTime: 'ISO encoded time'
 		}
-=======
-### View Test Logs [GET]
-
-+ Request (text/plain)
-
-+ Response 200 (text/html)
->>>>>>> origin/master
 
 ### Add Log Entry [POST]
 
