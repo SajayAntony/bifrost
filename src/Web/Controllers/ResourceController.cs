@@ -17,10 +17,17 @@ namespace Web.Controllers
         /// <response code="200">Test initialized.</response>
         public HttpResponseMessage PUT(resource resource)
         {
+            if (resource == null) {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "resource data { name:'...' } not specified.");
+            }
+
             var correlationId = Guid.NewGuid();
             var json = JsonConvert.SerializeObject(resource, Formatting.Indented);
+            
             try
-            {                
+            {
+         
+
                 Debug.WriteLine("Received request to create resource \n" + json);
 
                 var result = ResourceInvoker.DynaminInvoke(resource);

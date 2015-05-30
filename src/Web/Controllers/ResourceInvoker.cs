@@ -86,7 +86,7 @@ namespace Bridge.Commands
                 Debug.WriteLine(result);
                 this.Result = result;
             }
-            catch (Exception objException)
+            catch (Exception)
             {
                 // Log the exception
             }

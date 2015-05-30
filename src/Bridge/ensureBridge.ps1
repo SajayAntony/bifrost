@@ -1,14 +1,16 @@
 ﻿$baseAddress = "http://localhost:8080"
 
+Write-Host
+
 function checkBridge {
 	try { 
 		$response = Invoke-WebRequest $baseAddress
 		Write-Host Status code from the bridge :  $response.StatusCode
-		exit 0
+		return $true
 	} catch {
 		Write-Debug $_.Exception
 	}
-	Write-Host Could not find bridge at $baseAddress
+	Write-Warning "Could not find bridge at $baseAddress"
 	return $false;
 }
 
@@ -20,5 +22,12 @@ if(!$result)
 	$bridgePath = Join-Path $PSScriptRoot bridge.exe
 	Start-Process $bridgePath
 	$result = checkBridge;
-	Write-Host Check bridge result : $result
 }
+
+if($result){
+	Write-Host Invoking test command Bridge.Commands.WhoAmI on the bridge.
+	Invoke-RestMethod http://localhost:8080/resource/WhoAmI -Method PUT -Body "{name:'Bridge.Commands.WhoAmI'}" -ContentType application/json
+	exit 0
+}
+
+exit -1;
