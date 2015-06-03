@@ -1,12 +1,9 @@
 ﻿using Bridge.Tests.Commands;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Bridge.Tests
@@ -21,6 +18,20 @@ namespace Bridge.Tests
                 var result = client.PostAsJsonAsync("/config/", 
                                         new { resourcesDirectory = "."}).Result;
                 Assert.Equal(result.StatusCode, HttpStatusCode.OK);
+            }
+        }
+
+        [Fact]
+        public void ConfigResourcesNonExistantPath()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Constants.BaseAddress);
+                var result = client.PostAsJsonAsync("/config/",
+                                        new { resourcesDirectory = "Non-existantDirectory" }).Result;
+                var strResult = result.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(strResult);
+                Assert.Equal(result.StatusCode, HttpStatusCode.BadRequest);
             }
         }
 

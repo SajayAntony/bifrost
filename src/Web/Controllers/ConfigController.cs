@@ -17,15 +17,33 @@ namespace Web.Controllers
         {
             Trace.WriteLine("POST config: " + JsonConvert.SerializeObject(config, Formatting.Indented));
 
-            if (!config.isValidProbingPath())
+            try
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
-                    "config.resourcesDirectory does not exist.");
-            }
+                if (!config.isValidProbingPath())
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest,
+                        "config.resourcesDirectory does not exist.");
+                }
 
-            config.UpdateApp();
-            Trace.WriteLine("POST config: " + JsonConvert.SerializeObject(WebApiApplication.Config, Formatting.Indented));
-            return Request.CreateResponse(HttpStatusCode.OK, WebApiApplication.Config);
+                config.UpdateApp();
+                var response = new
+                {
+                    config = WebApiApplication.Config,
+                    types = TypeCache.Cache
+                };
+                Trace.WriteLine("POST config: " + JsonConvert.SerializeObject(response, Formatting.Indented));
+                return Request.CreateResponse(HttpStatusCode.OK, response);
+
+            }
+            catch (Exception ex)
+            {
+                var exceptionResponse = new { operation = "config", method = "POST", exception = ex };
+                Trace.WriteLine("POST config exception: " +
+                            JsonConvert.SerializeObject(exceptionResponse, Formatting.Indented));
+
+                return Request.CreateResponse(HttpStatusCode.BadRequest, exceptionResponse);
+
+            }
         }
     }
 }
