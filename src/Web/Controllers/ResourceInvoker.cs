@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Web.Models;
 using Web.Models.Data;
 
 namespace Web.Controllers
@@ -13,7 +14,7 @@ namespace Web.Controllers
                 throw new ArgumentNullException("resource.name");
             }
 
-            var type = Type.GetType(resource.name);            
+            var type = GetType(resource.name);
             if (type != null)
             {
                 var instance = Activator.CreateInstance(type);
@@ -23,11 +24,11 @@ namespace Web.Controllers
                     var paramInfo = method.GetParameters();
                     if (paramInfo.Length == 0)
                     {
-                        return method.Invoke(instance, new object[] {});
+                        return method.Invoke(instance, new object[] { });
                     }
                     else if (paramInfo.Length == 1)
                     {
-                        return method.Invoke(instance, new object[] { resource.parameters });                    
+                        return method.Invoke(instance, new object[] { resource.parameters });
                     }
 
                 }
@@ -35,7 +36,22 @@ namespace Web.Controllers
 
             throw new ArgumentException("Resource not found");
         }
-    }   
+
+        public static Type GetType(string typeName){            
+            var type = Type.GetType(typeName);
+            if(type != null)
+            {
+                return type;
+            }
+
+            if (!TypeCache.Cache.ContainsKey(typeName)) 
+            {
+                throw new ArgumentException("Could not locatype type " + typeName + " in " + WebApiApplication.Config.resourcesDirectory);
+            }
+
+            return TypeCache.Cache[typeName];
+        }
+    }
 }
 
 namespace Bridge.Commands

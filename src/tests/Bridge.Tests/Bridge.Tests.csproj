@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BridgeLaunchFixture.cs" />
+    <Compile Include="Commands\TestCommand.cs" />
+    <Compile Include="ConfigurationTests.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceControllerTests.cs" />
   </ItemGroup>

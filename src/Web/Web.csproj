@@ -106,11 +106,14 @@
   <ItemGroup>
     <Compile Include="App_Start\OwinSelfhostStartup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\ResourceController.cs" />
     <Compile Include="Controllers\ResourceInvoker.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\config.cs" />
+    <Compile Include="Models\ConfigurationExtensions.cs" />
     <Compile Include="Models\resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

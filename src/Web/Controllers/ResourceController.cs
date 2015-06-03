@@ -25,9 +25,7 @@ namespace Web.Controllers
             var json = JsonConvert.SerializeObject(resource, Formatting.Indented);
             
             try
-            {
-         
-
+            {         
                 Debug.WriteLine("Received request to create resource \n" + json);
 
                 var result = ResourceInvoker.DynaminInvoke(resource);
