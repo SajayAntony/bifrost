@@ -42,7 +42,7 @@ namespace Web.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, new
                 {
                     id = correlationId,
-                    error = exception.Message,
+                    error = exception,
                 });
             }
         }

@@ -17,6 +17,8 @@ namespace Web.Controllers
         {
             Trace.WriteLine("POST config: " + JsonConvert.SerializeObject(config, Formatting.Indented));
 
+            //TODO: Figure out how to lock it down to subnet. 
+
             try
             {
                 if (!config.isValidProbingPath())
