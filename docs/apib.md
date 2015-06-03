@@ -9,8 +9,32 @@ The test controller can be invoked using the API's listed below. These include c
 + dynamic invoke of  the ```Invoke()``` method on well known initializable type.
 + central logging so that client and server logs can viewed together.  
 
+# Group Config
+
+## Config Api's [/config]
+
+The resources/types can be initialized by bridge provided the path to the assemblies are known and types can be inistantiated. 
+* `resourcesDirectory` - This is the assembly probe path that would be used to initialize a case insenitive dictionary of fully quailified class name. The assembly name is not used to make the resource[PUT] command easier.   
+
+### Update directory [POST]
+
++ Request (application/json)
+
+		{
+			resourcesDirectory:"c:\testdir\",
+		}
+
++ Response 200 (application/json)
+
+		{
+			"config": {	"resourcesDirectory": "C:\git\bifrost\src\tests\Bridge.Tests\bin\Debug" },
+			"types": {	
+				"Bridge.Commands.Hostname": "Bridge.Commands.Hostname, Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+				...
+		}
+
 # Group Resources
-Group of all resource initialization, configuration and update methods.
+Group of all resource initialization & update methods.
 
 ## Resource Api's [/resource/{resourcename}]
 
